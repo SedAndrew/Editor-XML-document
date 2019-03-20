@@ -37,7 +37,8 @@ HEADERS += \
         workspace.h \
         element.h \
         models/table/tablemodel.h \
-        models/tree/treemodel.h
+        models/tree/treemodel.h \
+    widgets/lableclicked.h
 
 FORMS += \
         mainui.ui \
