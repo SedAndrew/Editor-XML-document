@@ -2,6 +2,7 @@
 #include "ui_mainui.h"
 #include "workspace.h"
 #include "models/tree/treemodel.h"
+#include "widgets/lableclicked.h"
 
 #include <QSplitter>
 #include <QGridLayout>
@@ -10,6 +11,8 @@
 #include <QMessageBox>
 #include <QSettings>
 #include <QDebug>
+
+#include <QMouseEvent>
 
 static QSettings *setting(new QSettings("FileName", "TextFile"));
 
@@ -22,6 +25,8 @@ MainWindow::MainWindow(QWidget *parent) :
   m_gridLayout = new QGridLayout(m_ui->m_pageEdit);
   m_workSpace = new WorkSpace;
   m_gridLayout->addWidget(m_workSpace);
+
+  connect(m_ui->m_lOpenFile, SIGNAL(clicked()), this, SLOT(on_m_OpenFile_clicked()));
 
   showStartWidget();
 }
@@ -134,7 +139,7 @@ void MainWindow::on_m_actionEditor_triggered()
   }
 }
 
-void MainWindow::on_m_pBOpenFile_released()
+void MainWindow::on_m_OpenFile_clicked()
 {
   if (loadFile()) {
     m_ui->m_actionEditor->setEnabled(true);
@@ -144,7 +149,24 @@ void MainWindow::on_m_pBOpenFile_released()
   }
 }
 
-void MainWindow::on_m_pBNewFile_released()
+void MainWindow::on_m_NewFile_clicked()
 {
 
+}
+
+void MainWindow::on_m_LastSetion_clicked()
+{
+
+}
+
+void MainWindow::mouseMoveEvent(QMouseEvent *event)
+{
+  int x = event->x();
+  int y = event->y();
+  if (x >= m_ui->m_lNewFile->x() &&
+      x <= m_ui->m_lNewFile->x() + m_ui->m_lNewFile->geometry().x() &&
+      y >= m_ui->m_lNewFile->y() &&
+      y <= m_ui->m_lNewFile->y() + m_ui->m_lNewFile->geometry().y()) {
+    m_ui->m_lNewFile->set
+  }
 }

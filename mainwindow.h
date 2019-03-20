@@ -6,6 +6,7 @@
 #include <QModelIndex>
 #include <QFile>
 
+
 namespace Ui {
   class MainUI;
 }
@@ -13,6 +14,7 @@ namespace Ui {
 class QGridLayout;
 class QPushButton;
 class WorkSpace;
+class LableClicked;
 
 class MainWindow : public QMainWindow
 {
@@ -34,12 +36,16 @@ public:
   void showMainWidget();
   void replaceTextFile(const QString &filename);
 
+protected:
+  void mouseMoveEvent(QMouseEvent *event);
+
 
 private slots:
   void on_m_actionStart_triggered();
   void on_m_actionEditor_triggered();
-  void on_m_pBOpenFile_released();
-  void on_m_pBNewFile_released();
+  void on_m_OpenFile_clicked();
+  void on_m_NewFile_clicked();
+  void on_m_LastSetion_clicked();
 
 private:
   QList<QWidget *> m_listFiles;
@@ -50,6 +56,10 @@ private:
   QMap<QString, QStringList> m_dataFile;
 
   Ui::MainUI *m_ui;
+
+
 };
+
+
 
 #endif // MAINWINDOW_H

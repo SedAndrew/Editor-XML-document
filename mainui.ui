@@ -70,17 +70,39 @@
               </property>
              </spacer>
             </item>
-            <item>
-             <widget class="QPushButton" name="m_pBOpenFile">
+            <item alignment="Qt::AlignHCenter">
+             <widget class="LableClicked" name="m_lOpenFile">
+              <property name="font">
+               <font>
+                <pointsize>14</pointsize>
+               </font>
+              </property>
               <property name="text">
-               <string>Открыть файл</string>
+               <string>Open file</string>
               </property>
              </widget>
             </item>
-            <item>
-             <widget class="QPushButton" name="m_pBNewFile">
+            <item alignment="Qt::AlignHCenter">
+             <widget class="LableClicked" name="m_lNewFile">
+              <property name="font">
+               <font>
+                <pointsize>14</pointsize>
+               </font>
+              </property>
               <property name="text">
-               <string>Новый файл</string>
+               <string>New file</string>
+              </property>
+             </widget>
+            </item>
+            <item alignment="Qt::AlignHCenter">
+             <widget class="LableClicked" name="m_lLastSetion">
+              <property name="font">
+               <font>
+                <pointsize>14</pointsize>
+               </font>
+              </property>
+              <property name="text">
+               <string>Last setion</string>
               </property>
              </widget>
             </item>
@@ -193,6 +215,13 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>LableClicked</class>
+   <extends>QLabel</extends>
+   <header>widgets/lableclicked.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
