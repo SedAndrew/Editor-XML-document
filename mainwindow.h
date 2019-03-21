@@ -47,6 +47,8 @@ private slots:
   void on_m_NewFile_clicked();
   void on_m_LastSetion_clicked();
 
+  void on_m_pBOpenFile_pressed();
+
 private:
   QList<QWidget *> m_listFiles;
   WorkSpace *m_workSpace;

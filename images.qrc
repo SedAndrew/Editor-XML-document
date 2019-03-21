@@ -1,0 +1,26 @@
+<RCC>
+    <qresource prefix="/">
+        <file>icons/about.png</file>
+        <file>icons/addAtr.png</file>
+        <file>icons/apptree.png</file>
+        <file>icons/copy.png</file>
+        <file>icons/cut.png</file>
+        <file>icons/delete.png</file>
+        <file>icons/exit.png</file>
+        <file>icons/find.png</file>
+        <file>icons/new.png</file>
+        <file>icons/open.png</file>
+        <file>icons/openFile.png</file>
+        <file>icons/paste.png</file>
+        <file>icons/save.png</file>
+        <file>icons/saveAs.png</file>
+        <file>icons/view.png</file>
+        <file>icons/magnifier.png</file>
+        <file>icons/unvisibility.png</file>
+        <file>icons/visibility.png</file>
+        <file>icons/last_session.png</file>
+        <file>icons/start_page_1.png</file>
+        <file>icons/start_page_2.png</file>
+        <file>icons/editor.png</file>
+    </qresource>
+</RCC>

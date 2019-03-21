@@ -26,7 +26,7 @@ MainWindow::MainWindow(QWidget *parent) :
   m_workSpace = new WorkSpace;
   m_gridLayout->addWidget(m_workSpace);
 
-  connect(m_ui->m_lOpenFile, SIGNAL(clicked()), this, SLOT(on_m_OpenFile_clicked()));
+//  connect(m_ui->m_lOpenFile, SIGNAL(clicked()), this, SLOT(on_m_OpenFile_clicked()));
 
   showStartWidget();
 }
@@ -163,10 +163,20 @@ void MainWindow::mouseMoveEvent(QMouseEvent *event)
 {
   int x = event->x();
   int y = event->y();
-  if (x >= m_ui->m_lNewFile->x() &&
-      x <= m_ui->m_lNewFile->x() + m_ui->m_lNewFile->geometry().x() &&
-      y >= m_ui->m_lNewFile->y() &&
-      y <= m_ui->m_lNewFile->y() + m_ui->m_lNewFile->geometry().y()) {
-    m_ui->m_lNewFile->set
+//  if (x >= m_ui->m_lNewFile->x() &&
+//      x <= m_ui->m_lNewFile->x() + m_ui->m_lNewFile->geometry().x() &&
+//      y >= m_ui->m_lNewFile->y() &&
+//      y <= m_ui->m_lNewFile->y() + m_ui->m_lNewFile->geometry().y()) {
+//    m_ui->m_lNewFile->set
+//  }
+}
+
+void MainWindow::on_m_pBOpenFile_pressed()
+{
+  if (loadFile()) {
+    m_ui->m_actionEditor->setEnabled(true);
+    m_ui->m_actionEditor->setChecked(true);
+
+    on_m_actionEditor_triggered();
   }
 }
