@@ -22,5 +22,7 @@
         <file>icons/start_page_1.png</file>
         <file>icons/start_page_2.png</file>
         <file>icons/editor.png</file>
+        <file>icons/editor_activated.png</file>
+        <file>icons/start_page_activated_1.png</file>
     </qresource>
 </RCC>
