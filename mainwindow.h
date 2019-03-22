@@ -27,13 +27,13 @@ public:
   void addNewWidgetAtCenter(QModelIndex index, QWidget *widget);
   void deleteWidgetFromCenter(QModelIndex index, QWidget *widget);
 
-  bool loadFile();
+  bool loadFile();        // загрузка документа
 
-  void addNewFileName(const QString &path);
-  void deleteFileName(const QString &path);
+  void addNewFileName(const QString &path);   // Добавление нового файла
+  void deleteFileName(const QString &path);   // Удаление файла
 
-  void showStartWidget();
-  void showMainWidget();
+  void showStartWidget();               // Стартовая страница
+  void showMainWidget();                // Главная страница редактора
   void replaceTextFile(const QString &filename);
 
 protected:
@@ -41,14 +41,18 @@ protected:
 
 
 private slots:
-  void on_m_actionStart_toggled(bool arg1);
-  void on_m_actionEditor_toggled(bool arg1);
-  void on_m_actionExit_triggered();
-  void on_m_pBOpenFile_pressed();
-  void on_m_NewFile_pressed();
-  void on_m_LastSetion_pressed();
-
-  void on_m_pBIconPanel_released();
+  void on_m_actionStart_toggled(bool arg1);     // Событие action Start page переключения check по arg1
+  void on_m_actionEditor_toggled(bool arg1);    // Событие action Edit  page переключения check по arg1
+  void on_m_actionExit_triggered();             // Событие action Exit from program
+  void on_m_pBOpenFile_pressed();               // Вызов функции загрузки документа
+  void on_m_NewFile_pressed();                  // Вызов функции создания документа
+  void on_m_LastSetion_pressed();               // Вызов предыдущей версии
+  void on_m_pBIconPanel_released();             // Открытие боковой панели
+  void on_m_actionOpen_triggered();             //
+  void on_m_actionNew_triggered();              //
+  void on_m_actionSessions_triggered();         //
+  void on_m_actionRecent_triggered();           //
+  void on_m_actionAboutQtCreator_triggered();   //
 
 private:
   QList<QWidget *> m_listFiles;

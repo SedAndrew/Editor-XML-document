@@ -546,7 +546,27 @@
     <property name="title">
      <string>&amp;Файл</string>
     </property>
-    <addaction name="m_actionStart"/>
+    <widget class="QMenu" name="m_menuSessions">
+     <property name="title">
+      <string>Сессии</string>
+     </property>
+     <property name="separatorsCollapsible">
+      <bool>false</bool>
+     </property>
+     <addaction name="separator"/>
+    </widget>
+    <widget class="QMenu" name="m_menuRecent">
+     <property name="title">
+      <string>Недавние документы...</string>
+     </property>
+     <addaction name="separator"/>
+     <addaction name="m_actionClearPlaceRecent"/>
+    </widget>
+    <addaction name="m_actionNew"/>
+    <addaction name="m_actionOpen"/>
+    <addaction name="separator"/>
+    <addaction name="m_menuRecent"/>
+    <addaction name="m_menuSessions"/>
     <addaction name="separator"/>
     <addaction name="m_actionExit"/>
    </widget>
@@ -559,13 +579,14 @@
     <property name="title">
      <string>Справ&amp;ка</string>
     </property>
-    <addaction name="action"/>
-    <addaction name="action_Qt_Creator"/>
+    <addaction name="m_actionAboutEditorXMLDocuments"/>
+    <addaction name="m_actionAboutQtCreator"/>
    </widget>
    <widget class="QMenu" name="m_menu_2">
     <property name="title">
      <string>&amp;Окно</string>
     </property>
+    <addaction name="m_actionStart"/>
     <addaction name="m_actionEditor"/>
    </widget>
    <addaction name="m_menu_1"/>
@@ -682,14 +703,18 @@
     <bool>false</bool>
    </property>
   </action>
-  <action name="action">
+  <action name="m_actionAboutEditorXMLDocuments">
    <property name="text">
     <string>О программе</string>
    </property>
   </action>
-  <action name="action_Qt_Creator">
+  <action name="m_actionAboutQtCreator">
+   <property name="icon">
+    <iconset resource="images.qrc">
+     <normaloff>:/icons/about.png</normaloff>:/icons/about.png</iconset>
+   </property>
    <property name="text">
-    <string>О Qt Creator</string>
+    <string>О программе Qt Creator...</string>
    </property>
   </action>
   <action name="m_emty">
@@ -713,6 +738,35 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+Q</string>
+   </property>
+  </action>
+  <action name="m_actionOpen">
+   <property name="icon">
+    <iconset resource="images.qrc">
+     <normaloff>:/icons/open.png</normaloff>:/icons/open.png</iconset>
+   </property>
+   <property name="text">
+    <string>Открыть документ...</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
+  </action>
+  <action name="m_actionNew">
+   <property name="icon">
+    <iconset resource="images.qrc">
+     <normaloff>:/icons/new.png</normaloff>:/icons/new.png</iconset>
+   </property>
+   <property name="text">
+    <string>Создать документ...</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
+   </property>
+  </action>
+  <action name="m_actionClearPlaceRecent">
+   <property name="text">
+    <string>Очистить поле</string>
    </property>
   </action>
  </widget>

@@ -15,6 +15,7 @@
 #include <QMouseEvent>
 
 static QSettings *setting(new QSettings("FileName", "TextFile"));
+static QSettings *settingWindow(new QSettings("FileName", "TextFile"));
 
 MainWindow::MainWindow(QWidget *parent) :
   QMainWindow(parent),
@@ -118,6 +119,8 @@ void MainWindow::showStartWidget()
 {
   if (m_ui->m_actionEditor->isEnabled())                      // If pushbutton edit is enabled
     m_ui->m_actionEditor->setChecked(false);                  // uncheck
+  m_ui->m_widgetPanel->setHidden(true);                       // Hidden left Panel
+//  m_ui->m_pBIconPanel->setEnabled(false);
   m_ui->m_pBIconPanel->setEnabled(false);                     // Disabled pushbutton panel
   m_ui->m_stackedWidget->setCurrentWidget(m_ui->m_pageStart); // Show start page
 }
@@ -125,6 +128,7 @@ void MainWindow::showStartWidget()
 void MainWindow::showMainWidget()
 {
   m_ui->m_actionStart->setChecked(false);                       // Pushbutton Start to unchecked
+  m_ui->m_widgetPanel->setHidden(false);                        // Show left Panel
   m_ui->m_pBIconPanel->setEnabled(true);                        // Enabled pushbutton panel
   m_ui->m_stackedWidget->setCurrentWidget(m_ui->m_pageEdit);    // Set page Edit
 
@@ -199,3 +203,29 @@ void MainWindow::on_m_pBIconPanel_released()
 }
 
 
+
+void MainWindow::on_m_actionOpen_triggered()
+{
+    on_m_pBOpenFile_pressed();
+}
+
+void MainWindow::on_m_actionNew_triggered()
+{
+    on_m_NewFile_pressed();
+}
+
+void MainWindow::on_m_actionSessions_triggered()
+{
+    on_m_LastSetion_pressed();
+}
+
+void MainWindow::on_m_actionRecent_triggered()
+{
+
+}
+
+void MainWindow::on_m_actionAboutQtCreator_triggered()
+{
+  QMessageBox* mess = new QMessageBox(this);
+  mess->aboutQt(this,"Информация о программе Qt Creator");
+}
