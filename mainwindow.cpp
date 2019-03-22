@@ -21,14 +21,15 @@ MainWindow::MainWindow(QWidget *parent) :
   m_ui(new Ui::MainUI)
 {
   m_ui->setupUi(this);
-  m_ui->m_actionEditor->setEnabled(false);
+  m_ui->m_widgetPanel->setHidden(true);         // Hidden left Panel
+  m_ui->m_actionEditor->setEnabled(false);      // Disabled pushbutton Editor
+  m_ui->m_actionStart->setChecked(true);        // Check pushbutton Start
+
   m_gridLayout = new QGridLayout(m_ui->m_pageEdit);
   m_workSpace = new WorkSpace;
   m_gridLayout->addWidget(m_workSpace);
 
 //  connect(m_ui->m_lOpenFile, SIGNAL(clicked()), this, SLOT(on_m_OpenFile_clicked()));
-
-  showStartWidget();
 }
 
 MainWindow::~MainWindow()
@@ -91,6 +92,18 @@ bool MainWindow::loadFile()
   return true;
 }
 
+void MainWindow::on_m_pBOpenFile_pressed()
+{
+  if (loadFile())
+  {
+    if (!m_ui->m_actionEditor->isEnabled())   // If pusbutton edit disabled
+      m_ui->m_actionEditor->setEnabled(true); // enabled
+    if (!m_ui->m_actionEditor->isChecked()) { // If pushbutton edit uncheck
+      m_ui->m_actionEditor->setChecked(true); // check
+    }
+  }
+}
+
 void MainWindow::addNewFileName(const QString &path)
 {
 
@@ -103,17 +116,24 @@ void MainWindow::deleteFileName(const QString &path)
 
 void MainWindow::showStartWidget()
 {
-  m_ui->m_stackedWidget->setCurrentWidget(m_ui->m_pageStart);
+  if (m_ui->m_actionEditor->isEnabled())                      // If pushbutton edit is enabled
+    m_ui->m_actionEditor->setChecked(false);                  // uncheck
+  m_ui->m_pBIconPanel->setEnabled(false);                     // Disabled pushbutton panel
+  m_ui->m_stackedWidget->setCurrentWidget(m_ui->m_pageStart); // Show start page
 }
 
 void MainWindow::showMainWidget()
 {
-  QSplitter *m_splitter_1(new QSplitter(m_ui->centralWidget));
+  m_ui->m_actionStart->setChecked(false);                       // Pushbutton Start to unchecked
+  m_ui->m_pBIconPanel->setEnabled(true);                        // Enabled pushbutton panel
+  m_ui->m_stackedWidget->setCurrentWidget(m_ui->m_pageEdit);    // Set page Edit
 
-  m_gridLayout->addWidget(m_splitter_1);
-  m_gridLayout->addWidget(m_pBOpenFile);
-  m_gridLayout->setMargin(1);
-  m_gridLayout->setSpacing(0);
+//  QSplitter *m_splitter_1(new QSplitter(m_ui->centralWidget));
+
+//  m_gridLayout->addWidget(m_splitter_1);
+//  m_gridLayout->addWidget(m_pBOpenFile);
+//  m_gridLayout->setMargin(1);
+//  m_gridLayout->setSpacing(0);
 }
 
 void MainWindow::replaceTextFile(const QString &filename)
@@ -121,40 +141,32 @@ void MainWindow::replaceTextFile(const QString &filename)
   setting->setValue(filename, m_dataFile[filename]);
 }
 
-void MainWindow::on_m_actionStart_triggered()
+void MainWindow::on_m_actionStart_toggled(bool arg1)
 {
-  if (m_ui->m_actionStart->isChecked())
-  {
-    m_ui->m_stackedWidget->setCurrentWidget(m_ui->m_pageStart);
-    m_ui->m_actionEditor->setChecked(false);
+  qDebug() << "This S : " << arg1;
+  if (arg1) { // changed Start page
+    showStartWidget();
+  } else if (!m_ui->m_actionEditor->isChecked()) {
+    m_ui->m_actionStart->setChecked(true);
   }
 }
 
-void MainWindow::on_m_actionEditor_triggered()
+void MainWindow::on_m_actionEditor_toggled(bool arg1)
 {
-  if (m_ui->m_actionEditor->isChecked())
-  {
-    m_ui->m_stackedWidget->setCurrentWidget(m_ui->m_pageEdit);
-    m_ui->m_actionStart->setChecked(false);
-  }
-}
-
-void MainWindow::on_m_OpenFile_clicked()
-{
-  if (loadFile()) {
-    m_ui->m_actionEditor->setEnabled(true);
+  qDebug() << "This E : " << arg1;
+  if (arg1) { // changed Edit page
+    showMainWidget();
+  } else if (!m_ui->m_actionStart->isChecked()) {
     m_ui->m_actionEditor->setChecked(true);
-
-    on_m_actionEditor_triggered();
   }
 }
 
-void MainWindow::on_m_NewFile_clicked()
+void MainWindow::on_m_NewFile_pressed()
 {
 
 }
 
-void MainWindow::on_m_LastSetion_clicked()
+void MainWindow::on_m_LastSetion_pressed()
 {
 
 }
@@ -171,12 +183,19 @@ void MainWindow::mouseMoveEvent(QMouseEvent *event)
 //  }
 }
 
-void MainWindow::on_m_pBOpenFile_pressed()
+void MainWindow::on_m_actionExit_triggered()
 {
-  if (loadFile()) {
-    m_ui->m_actionEditor->setEnabled(true);
-    m_ui->m_actionEditor->setChecked(true);
+    close();
+}
 
-    on_m_actionEditor_triggered();
+void MainWindow::on_m_pBIconPanel_released()
+{
+  if (m_ui->m_pBIconPanel->isChecked()) {
+    m_ui->m_widgetPanel->setHidden(false);
+  }
+  else {
+    m_ui->m_widgetPanel->setHidden(true);
   }
 }
+
+

@@ -41,13 +41,14 @@ protected:
 
 
 private slots:
-  void on_m_actionStart_triggered();
-  void on_m_actionEditor_triggered();
-  void on_m_OpenFile_clicked();
-  void on_m_NewFile_clicked();
-  void on_m_LastSetion_clicked();
-
+  void on_m_actionStart_toggled(bool arg1);
+  void on_m_actionEditor_toggled(bool arg1);
+  void on_m_actionExit_triggered();
   void on_m_pBOpenFile_pressed();
+  void on_m_NewFile_pressed();
+  void on_m_LastSetion_pressed();
+
+  void on_m_pBIconPanel_released();
 
 private:
   QList<QWidget *> m_listFiles;
