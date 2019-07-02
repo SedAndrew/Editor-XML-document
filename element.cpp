@@ -8,6 +8,17 @@ Element::Element(const QVariant &data, Element *parent)
   setData(data);
 }
 
+Element::Element(const Element &item)
+{
+  m_parent = item.getParent();
+  setData(item.getTag());
+//  for (int i = 0; i < item.getChildrenCount(); ++i) {
+//    for (int j = 0; j < item.getChild(i)->getChildrenCount(); ++j) {
+
+//    }
+//  }
+}
+
 Element::~Element()
 {
   qDeleteAll(m_children);
@@ -32,6 +43,7 @@ bool Element::dropChild(const int row)
   return true;
 }
 
+
 Element *Element::getChild(int row) const
 {
   return m_children.value(row);
@@ -42,28 +54,70 @@ Element *Element::getParent() const
   return m_parent;
 }
 
+const QVariant Element::getTag() const
+{
+  return m_tag;
+}
+
+bool Element::isParent()
+{
+  if (getChildrenCount() > 0) return true;
+  return  false;
+}
+
+bool Element::hasContent()
+{
+  return !m_content.isEmpty();
+}
+
+bool Element::hasComment()
+{
+  return !m_comment.isEmpty();
+}
+
+QVariant Element::getValue(const int index)
+{
+  return m_values[index];
+}
+
+QVariant Element::getAttribut(const int index)
+{
+  return m_attributes[index];
+}
+
+QVariant Element::getContent()
+{
+  return m_content;
+}
+
+QVariant Element::getComment()
+{
+  return  m_comment;
+}
+
 bool Element::setData(const QVariant &data)
 {
-  // инициализация: тег, атрибут, значение, контент, коммент-й
+  // инициализация: тег(1), атрибуты-значение(2), контент(3), комментарии(4+5)
   if (data.isNull()) return false;
-  QString string = data.toString();
-  QRegExp rElement("[\\t\\s]*"
-                   "<([^\\W\\d]+[\\w\\d]*)"        // 1
-                   "\\s*([^\\W\\d]+[\\w\\d]*=.*)?" // 2
-                   "(?:/>|>(.*)</\\1>|>\\s*)"      // 3
-                   "(\\s*<!--(.*)-->)?");          // 4
-  if (!rElement.indexIn(string)) {
+  QString string = data.toString().simplified();
+  QString filling;
+  QRegExp rElement("" // [\\t\\s]*
+                   "<([^\\W\\d]+[\\w|\\-]*)"                         // 1
+                   "\\s*([^\\W\\d]+[\\w\\-]*=\"[^>]*)*\\s?/?>"       // 2
+                   "([^<]*)?(?:<!--([^>]*)-->)?(?:</\\1>\\s*)?"      // 3, 4
+                   "(?:\\s*<!--([^>]*)-->)?");                       // 5
+    if (rElement.indexIn(string) != -1) {
     m_tag = rElement.cap(1);
+    filling = rElement.cap(2);
     m_content = rElement.cap(3);
-    m_comment = rElement.cap(4);
-    string = rElement.cap(2);
-//    if (!rAtrVal.indexIn(string)) {
-    if (!string.isEmpty()) {
-      QString remToken = "";
-      bool goString = false;
+    m_comment = rElement.cap(4) + ((rElement.cap(5).isEmpty()) ? "" : " | " + rElement.cap(5));
 
-      foreach (QString word, string.split(" ", QString::SkipEmptyParts)) {
-        QRegExp rexp("(?:(.*)=\")?([^\"]*)");
+    if (!filling.isEmpty()) {
+      QString remToken = "";
+      bool goString = false; // продолжается строка value
+      QStringList line = filling.split(" ", QString::SkipEmptyParts);
+      for (QString word : line) {
+      QRegExp rexp("(?:(.*)=\")?([^\"]*)"); // разделение на атрибут(1) и значение(2)
         rexp.indexIn(word);
         if (word.count("\"")) {
           if (word.count("\"") == 2) {
@@ -76,20 +130,26 @@ bool Element::setData(const QVariant &data)
             goString = true;
           }
           else {
-            remToken = QString("%1 %2").arg(remToken).arg(rexp.cap(2));
+            remToken += " " + rexp.cap(2);
             m_values     << remToken;
             remToken = "";
             goString = false;
           }
         }
         else if (goString) {
-          remToken = QString("%1 %2").arg(remToken).arg(word);
+          remToken += " " + word;
         }
-        else {}
       }
     }
+    else {
+      m_attributes << ""; m_values << "";
+    }
+  } else if (!string.contains(QRegExp("</.*>"))){
+      qDebug () << "Error validation: " << string;
   }
 
+  m_data = m_tag;
+  m_xml = string;
 
   return true;
 }
@@ -122,6 +182,11 @@ QVariant Element::data(const int num) const
   return QVariant(qvl);
 }
 
+QVariant Element::dataItem() const
+{
+  return QVariant(m_data);
+}
+
 int Element::getRow() const
 {
   if (m_parent)
@@ -132,6 +197,11 @@ int Element::getRow() const
 int Element::getChildrenCount() const
 {
   return m_children.count();
+}
+
+const QVariant Element::getXml() const
+{
+  return m_xml;
 }
 
 const QList<QString> &Element::getAttributes() const

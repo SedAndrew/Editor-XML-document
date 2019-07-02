@@ -1,0 +1,3 @@
+s Default
+d D:/Qt/qtproject/Example/build-workspace-Desktop_Qt_5_12_0_MinGW_64_bit-Debug/02.03.03_МОАИС_2015_очное.plm.xml
+

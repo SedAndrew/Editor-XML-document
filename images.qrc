@@ -24,5 +24,9 @@
         <file>icons/editor.png</file>
         <file>icons/editor_activated.png</file>
         <file>icons/start_page_activated_1.png</file>
+        <file>icons/closeDoc.png</file>
+        <file>icons/config.png</file>
+        <file>icons/session.png</file>
+        <file>icons/signout_106525.png</file>
     </qresource>
 </RCC>

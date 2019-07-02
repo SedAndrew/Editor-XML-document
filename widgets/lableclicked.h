@@ -34,7 +34,7 @@ protected:
   }
   void paintEvent(QPaintEvent *event)
   {
-
+      Q_UNUSED(event)
   }
 };
 
