@@ -1,37 +1,6 @@
-## Welcome to GitHub Pages
-
-You can use the [editor on GitHub](https://github.com/SedAndrew/Editor-XML-document/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
-
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
-
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/SedAndrew/Editor-XML-document/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+## Интерфейс
+Приложение было написано на языке программирования C++, в среде Qt 5.12. Структура приложения разделена на 4 части:
+  1) Пользовательский интерфейс – главное окно приложения, созданное  средствами Qt фреймворка, с помощью которого пользователь сможет загружать, редактировать и сохранять изменения XML документов на внешнем устройстве. Кроме того отдает различные команды для редактора кода – сгенерировать XML код дерева или создать новый элемента, открыть новый XML документ или сохранить текущий и т.п. 
+  2) Редактор XML кода – обрабатывает строковые переменные XML кода и преобразует их списки строк. Также проверяет файлы на валидность, и генерирует массивы строк обратно в XML файлы.
+  3) Генератор дерева – основная функциональная часть программы, в которой непосредственно создается дерево. На вход получает данные из документа, которые представляют собой  строки XML элементов, на выход выдает логическую модель данных в виде вложенных указателей на узлы. 
+  4) Графический интерпретатор – принимает модель сгенерированного дерева с установленными правилами модификации, и графически визуализирует дерево в пределах выделенной области, средствами Qt.	 	Рассмотрим теперь более детально интерфейс программы.
